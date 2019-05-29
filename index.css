@@ -32,7 +32,7 @@
 
 #first{
 
-    background-image: url("./images/image1.png") ;
+    background-image: url("./image1.png") ;
     background-size: 100% 100%;
     position: center;
 
@@ -86,7 +86,7 @@ img:hover{
 }
 
 #info{
-    background: url(./images/image10.jpeg) ;
+    background: url("./image10.jpeg") ;
     background-size: 100% 100%;
     /* margin-left: 20%; */
     width: 300px;
