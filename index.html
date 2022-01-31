@@ -1,106 +1,68 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <link rel="stylesheet" href="./index.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <div id="container">
-        <div class="item" id="first">
-            <br> 
-            <h2>Made <span class="white">By</span> Dawit</h2> 
-            <h1 style="padding-top: 20%;"><span class="white">Front End, Android Developer</span></h1>
+---
+layout: blog
+title: index
+permalink: /
+---
 
-        </div>
-
-        <div class="item" id="second">
-            <br>
-            <h1><span class="white">ProFile</span></h1><br><br><br><br><br><br><br><br>
-
-            <h3 class="white">I Can use</h3>
-            <p style="color: aquamarine">Java, Android SDK, python, JavaScript...</p><br><br>
-            
-            <h3 class="white">Interest Things</h3>
-            <p style="color: aquamarine">node.js, DataBase, Guitar, Football.. </p><br><br>
-
-            <h3 class="white">If you wanna contact me</h3>
-            <p style="color: aquamarine">Email : dawit@kookmin.ac.kr <br>
-            Phone : 010-5906-2262</p>
-        </div>
-
-        <div class="item" id="three">
-            <br>
-            <h1 class="white">Shape of Me</h1><br>
-            <table>
-                <tr>
-                    <td><img src="./image2.jpeg" alt=""></td>
-                    <td><img src="./image3.jpeg" alt=""></td>
-                    <td><img src="./image4.jpeg" alt=""></td>
-                </tr>
-                <tr>
-                    <td><img src="./image5.jpeg" alt=""></td>
-                    <td><img src="./image6.jpeg"></td>
-                    <td><img src="./image7.jpeg"></td>
-                </tr>
-                <tr>
-                    <td><img src="./image8.jpeg"></td>
-                    <td><img src="./image9.jpeg"></td>
-                </tr>
-
-            </table>
-        </div>
-
-        <div class="item" id="four">
-            <div id="info_me">
-                <br><br><br><br><br>
-                <table>
-                    <tr>
-                        <td><div id="info">
-                                <!-- <img src="./images/image10.jpeg" alt="" style="height: 300px; width: 300px; -webkit-filter: grayscale(0%);
-                                filter: none;" > -->
-                                <!-- Hello! <br> I'm Dawit Kwak -->
-                            </div></td>
-                        <td><div id="info2">
-                                <h1>Thank you for Watching!</h1>
-                        </div></td>
-                    </tr>
-                </table>
-                
-                
-            </div>
-        </div>
-
-
-        <!-- <div class="item" id="copyright">5</div> -->
+<div class="navbar-wrapper">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#page-top" id="i18_title"><span data-i18n="website.title">{{ site.title }}</span></a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right" id="i18_navbar">
+          {% for section in site.data.landing %}
+          <li>
+            {% if section.page %}
+              <a class="page-scroll" href="{{ section.page}} ">
+            {% else %}
+              <a class="page-scroll" href="{{ section.id | prepend: '#'}} ">
+            {% endif %}
+              <span data-i18n="{{ section.i18n }}">{{ section.name }}</span>
+            </a>
+          </li>
+          {% endfor %}
+          {% for language in site.data.index.language %}
+          <li>
+            <a id="set_lang_{{ language.locale }}" class="btn btn-sm set_{{ language.locale }}" data-locale="{{ language.locale }}">
+              <img src="{{ language.flag | prepend: site.baseurl }}" height="16" width="16">
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-    <script>
-        // function funcThisSize() {
-        //     $("#innerWidth").html( window.innerWidth );
-        //     $("#innerHeight").html( window.innerHeight );
-        //     $("#outerWidth").html( window.outerWidth );
-        //     $("#outerHeight").html( window.outerHeight );
-        // }
-        
-        // $(function(){
-        //     $(window).resize( funcThisSize );
-        //     funcThisSize();
-        // });
-        
-        //     function getCurrentScrollPercentage(){
-        //     return (window.scrollY + window.innerHeight) / document.body.clientHeight * 100
-        // }
-        //     document.addEventListener("scroll", () => {
-        //     const currentScrollPercentage = getCurrentScrollPercentage()
-        //     if(currentScrollPercentage > 90){
-        //     ////업데이트
-            
-        //     }
-        // }
-        
-    </script>
-</body>
+  </nav>
+</div>
+{% if site.index_carousel %}
+{% include carousel.html %}
+{% endif %}
 
-</html>
+{% for section in site.data.landing %}
+{% assign loopindex = forloop.index | modulo: 2 %}
+<section id="{{ section.id }}" class="features {% if loopindex != 1 %} gray-section {% endif %} {{ section.css }}" style="margin-top: 0;">
+  {% include sections/{{section.tpl}} %}
+</section>
+{% endfor %}
+<style>
+iframe {
+  -moz-transform: scale(0.25, 0.25);
+  -webkit-transform: scale(0.25, 0.25);
+  -o-transform: scale(0.25, 0.25);
+  -ms-transform: scale(0.25, 0.25);
+  transform: scale(0.25, 0.25);
+  -moz-transform-origin: top left;
+  -webkit-transform-origin: top left;
+  -o-transform-origin: top left;
+  -ms-transform-origin: top left;
+  transform-origin: top left;
+}
+</style>
+<!-- <iframe src="https://www.maimemo.com/share/page/?uid=779139&pid=660" style="display: none;"></iframe> -->
